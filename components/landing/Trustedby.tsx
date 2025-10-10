@@ -3,8 +3,10 @@
 import {useRef, useEffect} from "react";
 import Image from "next/image";
 import gsap from "gsap";
+import {useTranslations} from "next-intl";
 
 export default function TrustedBy() {
+    const t = useTranslations("info");
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const trackRef   = useRef<HTMLDivElement | null>(null);
 
@@ -40,7 +42,8 @@ export default function TrustedBy() {
       className="relative overflow-hidden py-15 bg-black flex flex-col items-center justify-center text-center difuminado"
     >
       <h2 className="text-white/60 text-sm tracking-[0.25em] uppercase mb-6">
-        Trusted by leading brands
+   
+        {t("trusted.tittle", {default: "Trusted by leading brands"})}
       </h2>
 
       <div className="relative w-full overflow-hidden">
