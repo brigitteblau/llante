@@ -1,17 +1,19 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { useId, useState } from "react";
 
 export default function ContactSection() {
   const t = useTranslations("info");
-  const nameId  = useId();
+  const locale = useLocale();
+
+  const nameId = useId();
   const emailId = useId();
   const phoneId = useId();
-  const msgId   = useId();
+  const msgId = useId();
 
   const [loading, setLoading] = useState(false);
-  const [status, setStatus]   = useState<null | "ok" | "err">(null);
+  const [status, setStatus] = useState<null | "ok" | "err">(null);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -20,30 +22,32 @@ export default function ContactSection() {
     const form = e.currentTarget;
     const data = new FormData(form);
 
-    // honeypot: si viene con contenido, es bot
+    // anti-bot
     if ((data.get("company") as string)?.trim()) {
       setStatus("ok");
       form.reset();
       return;
     }
 
-    // validaciones mínimas
-    const email = (data.get("email") as string)?.trim();
-    const name  = (data.get("name") as string)?.trim();
-    const msg   = (data.get("message") as string)?.trim();
-    if (!email || !name || !msg) return;
+    const payload = {
+      name: (data.get("name") as string)?.trim(),
+      email: (data.get("email") as string)?.trim(),
+      phone: (data.get("phone") as string)?.trim() || null,
+      message: (data.get("message") as string)?.trim(),
+      locale,
+    };
+
+    if (!payload.name || !payload.email || !payload.message) return;
 
     setLoading(true);
     try {
-      // Si tenés un endpoint, activá esto y ajustá la ruta:
-      // const res = await fetch("/api/contact", { method: "POST", body: data });
-      // if (!res.ok) throw new Error();
-      // --- Fallback temporal: abrir mailto formateado
-      const subject = encodeURIComponent(`[Contacto] ${name}`);
-      const body =
-        `Nombre: ${name}\nEmail: ${email}\nTeléfono: ${data.get("phone") || "-"}\n\nMensaje:\n${msg}`;
-      window.location.href = `mailto:hola@tuempresa.com?subject=${subject}&body=${encodeURIComponent(body)}`;
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
+      if (!res.ok) throw new Error("Request failed");
       setStatus("ok");
       form.reset();
     } catch {
@@ -55,7 +59,6 @@ export default function ContactSection() {
 
   return (
     <section id="contact" className="relative bg-neutral-950 text-white py-20 overflow-hidden">
-      {/* DIFUMINADO: usa tu clase existente para el blur/gradiente */}
       <div aria-hidden className="difuminado pointer-events-none absolute inset-0" />
 
       <div className="relative max-w-5xl mx-auto px-6">
@@ -65,11 +68,11 @@ export default function ContactSection() {
         </header>
 
         <div className="grid md:grid-cols-2 gap-10">
-          {/* Copy / bullets */}
+          {/* texto / bullets */}
           <div className="space-y-6">
             <p className="text-white/80">{t("contact.pitch")}</p>
             <ul className="space-y-3">
-              {["flex1","flex2","flex3","flex4"].map((k) => (
+              {["flex1", "flex2", "flex3", "flex4"].map((k) => (
                 <li key={k} className="flex items-start gap-3">
                   <span className="mt-1 h-2 w-2 rounded-full bg-gradient-to-r from-[var(--hot)] to-[var(--cool)]" />
                   <span className="text-white/80">{t(`contact.${k}`)}</span>
@@ -83,8 +86,8 @@ export default function ContactSection() {
                 className="inline-flex items-center gap-2 rounded-full bg-white text-black px-5 py-2.5 font-semibold transition-transform hover:scale-105 active:scale-95"
               >
                 {t("contact.whatsapp")}
-                <svg width="16" height="16" viewBox="0 0 24 24" className="opacity-70" aria-hidden>
-                  <path fill="currentColor" d="M13 5h6v6h-2V8.41l-9.29 9.3l-1.42-1.42l9.3-9.29H13z"/>
+                <svg width="16" height="16" viewBox="0 0 24 24" className="opacity-70">
+                  <path fill="currentColor" d="M13 5h6v6h-2V8.41l-9.29 9.3l-1.42-1.42l9.3-9.29H13z" />
                 </svg>
               </a>
               <a
@@ -96,15 +99,12 @@ export default function ContactSection() {
             </div>
           </div>
 
-          {/* Form */}
+          {/* formulario */}
           <form
             onSubmit={onSubmit}
             noValidate
             className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur"
           >
-            <h3 className="sr-only">{t("contact.formTitle")}</h3>
-
-            {/* Honeypot anti-spam */}
             <input type="text" name="company" className="hidden" tabIndex={-1} autoComplete="off" />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -118,7 +118,6 @@ export default function ContactSection() {
                   required
                   autoComplete="name"
                   className="w-full rounded-lg bg-black/40 border border-white/15 px-4 py-2.5 outline-none focus:ring-2 focus:ring-white/30"
-                  aria-required="true"
                 />
               </div>
               <div>
@@ -132,7 +131,6 @@ export default function ContactSection() {
                   required
                   autoComplete="email"
                   className="w-full rounded-lg bg-black/40 border border-white/15 px-4 py-2.5 outline-none focus:ring-2 focus:ring-white/30"
-                  aria-required="true"
                 />
               </div>
               <div className="sm:col-span-2">
@@ -157,13 +155,14 @@ export default function ContactSection() {
                   rows={5}
                   required
                   className="w-full resize-y rounded-lg bg-black/40 border border-white/15 px-4 py-3 outline-none focus:ring-2 focus:ring-white/30"
-                  aria-required="true"
                 />
               </div>
             </div>
 
+            <input type="hidden" name="locale" value={locale} />
+
             <div className="mt-5 flex items-start gap-3 text-xs text-white/70">
-              <input id="consent" required type="checkbox" className="mt-1 accent-white" aria-required="true" />
+              <input id="consent" required type="checkbox" className="mt-1 accent-white" />
               <label htmlFor="consent">{t("contact.form.consent")}</label>
             </div>
 
@@ -175,20 +174,12 @@ export default function ContactSection() {
               {loading ? t("contact.form.sending") : t("contact.form.send")}
             </button>
 
-            {/* Estado */}
-            {status === "ok" && (
-              <p role="status" className="mt-3 text-sm text-green-300">
-                {t("contact.form.success")}
-              </p>
-            )}
-            {status === "err" && (
-              <p role="status" className="mt-3 text-sm text-red-300">
-                {t("contact.form.error")}
-              </p>
-            )}
+            {status === "ok" && <p className="mt-3 text-sm text-green-300">{t("contact.form.success")}</p>}
+            {status === "err" && <p className="mt-3 text-sm text-red-300">{t("contact.form.error")}</p>}
           </form>
         </div>
       </div>
     </section>
   );
 }
+

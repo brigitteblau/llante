@@ -10,12 +10,15 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
+    "@neondatabase/serverless": "^1.0.2",
     "framer-motion": "^12.23.22",
     "gsap": "^3.13.0",
     "next": "15.5.4",
     "next-intl": "^4.3.12",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "resend": "^6.1.2",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
