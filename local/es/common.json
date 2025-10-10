@@ -1,0 +1,15 @@
+{
+  "brand": "Llante",
+ "nav": {
+    "hello": "Inicio",
+    "projects": "Equipo",
+    "about": "Soluciones",
+    "contact": "Hablemos",
+
+  
+
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú"
+  },
+    "cta": { "contact": "Contacto", "demo": "Agendar Demo" }
+}

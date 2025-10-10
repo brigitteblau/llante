@@ -1,0 +1,36 @@
+{
+  "contact": {
+    "title": "¿Hablamos?",
+    "subtitle": "Contanos qué necesitás y te proponemos el camino más corto a resultados.",
+    "pitch": "Trabajamos con tu stack preferido o te recomendamos uno. Podemos entrar por un MVP rápido, optimizar lo que ya tenés o armar un equipo para construir a escala.",
+    "flex1": "Nos adaptamos a tu herramienta: Webflow, Next.js, React Native, Shopify, WordPress, o la que uses.",
+    "flex2": "Integraciones: pagos, CRM, analítica, SEO/ASO, datos en tiempo real.",
+    "flex3": "Servicios end-to-end: diseño, desarrollo, automatizaciones, contenido y growth.",
+    "flex4": "Entrega ágil: ciclos cortos con demostros cada 1–2 semanas.",
+    "whatsapp": "Escribinos por WhatsApp",
+    "email": "Mandar un email",
+    "formTitle": "Formulario de contacto",
+    "form": {
+      "name": "Nombre y apellido",
+      "email": "Email",
+      "phone": "Teléfono (opcional)",
+      "message": "Mensaje",
+      "consent": "Acepto que se usen estos datos para responder a mi consulta.",
+      "send": "Enviar"
+    }
+  },
+  "faq": {
+    "title": "¿Tenés preguntas? Te las respondemos",
+    "subtitle": "Elegí el nivel de acompañamiento. Si preferís, nos adaptamos 100% a tus herramientas actuales.",
+    "q1": "¿Qué servicios ofrecemos exactamente?",
+    "a1": "Diseño y desarrollo de sitios y apps, landings de alto rendimiento, automatizaciones con IA, integraciones a tus servicios ya existentes (pagos, CRM, analítica), optimización SEO/ASO y contenido. Si ya usás algo (Webflow, WordPress, Shopify, Next.js, React Native), trabajamos sobre eso.",
+    "q2": "¿Cuánto tiempo tarda en verse resultados?",
+    "a2": "Para una landing o micro-sitio, 1 semana. Para un producto con varias features, planificamos en sprints de 1–2 semanas con entregas visibles y métricas.",
+    "q3": "¿Pueden trabajar con nuestras herramientas actuales?",
+    "a3": "Sí. Nos integramos a tu stack y procesos: Figma, Notion, Jira, Webflow, Next.js, etc. Si preferís, proponemos stack y lo dejamos documentado.",
+    "q4": "¿Cómo medimos el impacto?",
+    "a4": "Definimos métricas desde el día 1 (conversiones, retención, tiempos de tareas, MQL/SQL, etc.) y dejamos tableros para ver avances en vivo.",
+    "q5": "¿Cómo empezamos?",
+    "a5": "Agendamos una llamada corta, entendemos objetivos y proponemos un plan con fases, tiempos y costos. Si hay fit, arrancamos con un sprint piloto."
+  }
+}
