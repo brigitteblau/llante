@@ -9,10 +9,15 @@ import  ContactSection from "@/components/landing/ContactSection";
 import Footer from "@/components/common/Footer";
 import {setRequestLocale} from "next-intl/server";
 
-export default function Page({params: {locale}}:{params:{locale:string}}){
-  setRequestLocale(locale); // asegura el locale en esta ruta
+export default async function Page(props: {
+  // 👇 también Promise acá
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await props.params;
+  setRequestLocale(locale);
+
   return (
-    <>
+   <>
       <NavBar/>
       <main className="overflow-hidden">
         <Hero/>
@@ -24,3 +29,5 @@ export default function Page({params: {locale}}:{params:{locale:string}}){
     </>
   );
 }
+
+    
