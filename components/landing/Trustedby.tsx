@@ -33,9 +33,11 @@ export default function TrustedBy() {
   }, []);
 
   return (
+
+
     <section
       ref={sectionRef}
-      className="relative overflow-hidden py-15 bg-black flex flex-col items-center justify-center text-center"
+      className="relative overflow-hidden py-15 bg-black flex flex-col items-center justify-center text-center difuminado"
     >
       <h2 className="text-white/60 text-sm tracking-[0.25em] uppercase mb-6">
         Trusted by leading brands
@@ -58,6 +60,8 @@ export default function TrustedBy() {
         <div className="absolute left-0 top-0 h-full w-40 bg-gradient-to-r from-black via-black/80 to-transparent pointer-events-none" />
         <div className="absolute right-0 top-0 h-full w-40 bg-gradient-to-l from-black via-black/80 to-transparent pointer-events-none" />
       </div>
+      
     </section>
+
   );
 }

@@ -27,7 +27,6 @@ export default function NavBar() {
 
   return (
     <header className="fixed top-6 left-0 w-full z-50 flex justify-center">
-      {/* Contenedor pill */}
       <div className="w-[92%] max-w-4xl flex items-center ">
         <Link
             href={`/${locale}`}
@@ -36,8 +35,7 @@ export default function NavBar() {
             <Image src="/logo.png" alt="llante-logo" width={150} height={300}/>
           </Link>
 
-        <div className="flex  justify-end bg-black/90 rounded-full px-4 py-2 backdrop-blur-sm shadow-lg">
-          {/* Brand */}
+     <div className="flex justify-end bg-black/90 rounded-full px-4 py-2 backdrop-blur-sm shadow-lg">
           
 
           {/* Desktop nav */}

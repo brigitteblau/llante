@@ -1,6 +1,11 @@
 "use client";
+//Questions.tsx
+
 
 import { useTranslations } from "next-intl";
+import { Bowlby_One } from "next/font/google";
+
+const bowlby = Bowlby_One({ weight: "400", subsets: ["latin"] });
 
 type QA = { q: string; a: string };
 
@@ -13,11 +18,44 @@ export default function FAQServices() {
     { q: t("faq.q4"), a: t("faq.a4") },
     { q: t("faq.q5"), a: t("faq.a5") },
   ];
+ 
+ return (
+ 
+ <>
+ <div className="absolute bottom-0 left-0 right-0 h-70 bg-gradient-to-t from-black via-black/40 to-transparent" />
 
-  return (
-    <section className="bg-black py-20">
-      <div className="max-w-5xl mx-auto px-6">
-        <header className="text-center mb-10">
+    <section
+      id="faq"
+      className="relative py-24 overflow-hidden mt-[-1px]"
+      
+      style={{
+        background:
+          "linear-gradient(180deg, #0b1024 0%, #0e1430 60%, #11173a 100%)",
+      }}
+    >
+      {/* --- círculos difuminados tipo Hero --- */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div
+          className="absolute w-[480px] h-[480px] rounded-full blur-[160px] opacity-30"
+          style={{
+            background: "radial-gradient(circle, var(--hot) 0%, transparent 70%)",
+            top: "-120px",
+            left: "5%",
+          }}
+        />
+        <div
+          className="absolute w-[480px] h-[480px] rounded-full blur-[160px] opacity-25"
+          style={{
+            background: "radial-gradient(circle, #00f5d4 0%, transparent 70%)",
+            bottom: "-160px",
+            right: "10%",
+          }}
+        />
+      </div>
+
+      {/* --- contenido --- */}
+      <div className="relative z-10 max-w-6xl mx-auto px-6">
+       <header className="text-center mb-10">
           <h2 className="text-white text-3xl sm:text-5xl font-extrabold">{t("faq.title")}</h2>
           <p className="text-white/70 mt-3">{t("faq.subtitle")}</p>
         </header>
@@ -26,19 +64,27 @@ export default function FAQServices() {
           {faqs.map(({ q, a }, i) => (
             <details
               key={i}
-              className="group rounded-2xl border border-white/10 bg-neutral-900/60 px-5 sm:px-6 py-4 open:bg-neutral-900/90 transition"
+              className="group rounded-3xl border border-white/10 bg-white/[0.03] px-6 py-5 backdrop-blur-sm hover:bg-white/[0.06] transition-all duration-300 open:shadow-[0_0_40px_rgba(255,255,255,0.05)]"
             >
-              <summary className="list-none flex items-center justify-between gap-4 cursor-pointer">
-                <h3 className="text-white/90 text-base sm:text-lg font-medium">{q}</h3>
-                <span className="shrink-0 rounded-full border border-white/15 w-8 h-8 grid place-items-center text-white/70 transition group-open:rotate-45">
+              <summary className="list-none flex items-center justify-between gap-4 cursor-pointer select-none">
+                <h3 className="text-white/90 text-lg sm:text-xl font-semibold tracking-tight">
+                  {q}
+                </h3>
+                <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/15 text-white/70 text-xl transition-transform duration-300 group-open:rotate-45 group-open:border-white/40">
                   +
                 </span>
               </summary>
-              <div className="mt-3 text-white/75 leading-relaxed">{a}</div>
+              <div className="mt-10 text-white/80 leading-relaxed text-base">
+                {a}
+              </div>
             </details>
           ))}
         </div>
       </div>
+
+      {/* difuminado inferior (transición suave con el siguiente bloque) */}
+      <div className="absolute bottom-0 left-0 right-0 h-70 bg-gradient-to-t from-black via-black/40 to-transparent" />
     </section>
+    </>
   );
 }

@@ -1,0 +1,20 @@
+
+{
+  "newsletter": {
+    "title": "Keep in the loop with Llante",
+    "subtitle": "Updates, work highlights and launches. No spam.",
+    "emailPlaceholder": "Email address",
+    "cta": "Subscribe"
+  },
+  "links": {
+    "blog": "Blog",
+    "showcase": "Showcase",
+    "learn": "Services",
+    "contact": "Contact"
+  },
+  "connect": "Connect",
+  "privacy": "Privacy Policy",
+  "terms": "Terms of Use",
+  "contactCta": "Contact",
+  "copyright": "All rights reserved."
+}

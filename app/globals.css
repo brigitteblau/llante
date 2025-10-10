@@ -14,7 +14,10 @@ body { @apply bg-white text-black antialiased; }
   --cool: #5b6bff;
   --dark: #0f1221;
   --light: #ffffff;
-  --muted: #141a35; 
+  --muted: #141a35;
+  --bg: #0f1221;
+--accent: #c2ff4d;
+
 }
 
 html, body {
@@ -28,4 +31,14 @@ body {
 
 a {
   @apply cursor-pointer transition;
+}
+.difuminado::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0.4), transparent);
+  pointer-events: none;
 }

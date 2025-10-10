@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     locale: "es",
     type: "website",
   },
-};
+}; 
 
 export function generateStaticParams() {
   return [{locale: "es"}, {locale: "en"}]; // si solo usás ES por ahora, dejá solo "es"
