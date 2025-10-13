@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
     if (website && website.trim() !== "") {
       return NextResponse.json({ ok: true }); 
     }
-
+ //
   const _rows = await sql`
   insert into contacts (name, email, phone, service, message, locale)
   values (${name}, ${email}, ${phone ?? null}, ${service ?? null}, ${message}, ${locale ?? 'es'})
