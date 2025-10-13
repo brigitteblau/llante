@@ -33,7 +33,7 @@ useEffect(() =>
   const isActive = (href: string) => pathname === href;
 
   return (
-  <header className={`fixed top-3 left-0 w-full z-50 transition-all duration-300 ${
+  <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
     scrolled ? "bg-black/80 backdrop-blur-md shadow-lg z-40" : "bg-transparent"
   }`}>
   <div className="w-[92%] max-w-6xl mx-auto flex items-center justify-between">
@@ -47,8 +47,8 @@ useEffect(() =>
 
     {/* Nav centrado */}
     <div className="flex-1 flex justify-center">
-      <div className="flex justify-center bg-black/90 rounded-full px-4 py-2 backdrop-blur-sm shadow-lg">
-        <nav className="hidden sm:flex items-center gap-2">
+<div className="hidden md:flex justify-center bg-black/90 rounded-full px-4 py-2 backdrop-blur-sm shadow-lg">
+  ...        <nav className="hidden sm:flex items-center gap-2">
           {links.map((link) => {
             const base =
               "text-sm font-medium px-5 py-2 rounded-full transition-all duration-200";

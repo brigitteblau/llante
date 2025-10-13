@@ -12,6 +12,9 @@
   "flex4": "Entrega ágil: ciclos cortos con demostraciones cada 1–2 semanas.",
   "whatsapp": "Escribinos por WhatsApp",
   "email": "Mandar un email",
+  "whatsappPrefill": "Hola, quiero consultar por un servicio.",
+  "emailSubject": "Consulta desde la web",
+  "emailBody": "Hola, me gustaría consultar por un servicio.",
   "formTitle": "Formulario de contacto",
   "form": {
     "name": "Nombre y apellido",
@@ -21,9 +24,21 @@
     "consent": "Acepto que se usen estos datos para responder a mi consulta.",
     "send": "Enviar",
     "sending": "Enviando…",
-    "success": "¡Listo! Te acabamos de abrir el correo con el mensaje. Si preferís, también podemos responderte por WhatsApp.",
-    "error": "Ups, no pudimos enviar tu mensaje. Probá de nuevo o escribinos a hola@tuempresa.com."
-  }
+    "success": "¡Listo! Ya tenemos tu solicitud, en estos días te vamos a estar contactandoo",
+    "error": "Ups, no pudimos enviar tu mensaje. Probá de nuevo o escribinos a hola@tuempresa.com.",
+    "service": {
+    "label": "¿Qué tipo de servicio querés?",
+    "placeholder": "Elegí una opción",
+        "options": {
+          "landing": "Landing / Sitio institucional",
+          "webapp": "Web App / Sistema",
+          "branding": "Branding / Identidad",
+          "ecommerce": "E-commerce",
+          "seo": "SEO / Posicionamiento",
+          "otro": "Otro"
+        }
+  }}
+  
 },
 
   "faq": {

@@ -1,0 +1,34 @@
+{
+  "privacy": {
+    "title": "Política de Privacidad",
+    "intro": "Estamos comprometidos con cuidar tus datos, en esta políticaexplicamos de que manera recopilamos tus datos y como los usamos.",
+    "sections": [
+      { "heading": "Datos que recopilamos", "body": "Nombre, email y mensajes enviados desde formularios. No vendemos tus datos." },
+      { "heading": "Uso de la información", "body": "Usamos tus datos para responder consultas y mejorar nuestros servicios." },
+      { "heading": "Tus derechos", "body": "Usted tiene todo derecho a no contestar o a pedirnos lo que guardamos, no se quede con las ganas" }
+    ]
+  },
+  "terms": {
+    "title": "Términos y Condiciones",
+    "intro": "Al usar este sitio aceptás estos términos. Nos comprometemos a mantenerlos actualizados.",
+    "sections": [
+      { "heading": "Uso del sitio", "body": "El contenido puede cambiar sin previo aviso. No se permite el uso indebido ni la copia no autorizada." },
+      { "heading": "Propiedad intelectual", "body": "Todo el contenido es propiedad de Llante salvo que se indique lo contrario." },
+      { "heading": "Responsabilidad", "body": "No garantizamos disponibilidad continua. El uso del sitio esta bajo tu responsabilidad." }
+    ]
+  },
+  "work": {
+    "title": "Trabajos",
+    "intro": "Algunos proyectos recientes y casos de estudio.",
+    "list": [
+      "SecureTrack – Sistema QR para instituciones",
+      "Mirrow – E-commerce de indumentaria",
+      "Tevila It"
+    ]
+  },
+  "contact": {
+    "title": "Contacto",
+    "intro": "Escribinos por el canal que prefieras:",
+    "note": "Estamos comprometicos con responterte lo antes posible :)"
+  }
+}

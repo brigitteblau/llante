@@ -7,13 +7,14 @@ export default function ContactSection() {
   const t = useTranslations("info");
   const locale = useLocale();
 
-  const nameId = useId();
-  const emailId = useId();
-  const phoneId = useId();
-  const msgId = useId();
+  const nameId   = useId();
+  const emailId  = useId();
+  const phoneId  = useId();
+  const serviceId= useId();
+  const msgId    = useId();
 
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState<null | "ok" | "err">(null);
+  const [status, setStatus]   = useState<null | "ok" | "err">(null);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -22,7 +23,7 @@ export default function ContactSection() {
     const form = e.currentTarget;
     const data = new FormData(form);
 
-    // anti-bot
+
     if ((data.get("company") as string)?.trim()) {
       setStatus("ok");
       form.reset();
@@ -33,6 +34,7 @@ export default function ContactSection() {
       name: (data.get("name") as string)?.trim(),
       email: (data.get("email") as string)?.trim(),
       phone: (data.get("phone") as string)?.trim() || null,
+      service: (data.get("service") as string)?.trim() || null, // <— NUEVO
       message: (data.get("message") as string)?.trim(),
       locale,
     };
@@ -56,6 +58,19 @@ export default function ContactSection() {
       setLoading(false);
     }
   }
+
+  const waPhone = "5491161213881"; 
+  const waText  = encodeURIComponent(
+    t("contact.whatsappPrefill", {
+      default: "Hola llante, quiero consultar por un servicio.",
+    })
+  );
+  const waHref = `https://wa.me/${waPhone}?text=${waText}`;
+
+  const emailTo   = "brigitteyaelblau0@gmail.com";
+  const emailSub  = encodeURIComponent(t("contact.emailSubject", { default: "Consulta desde la web" }));
+  const emailBody = encodeURIComponent(t("contact.emailBody", { default: "Hola, me gustaría consultar por un servicio." }));
+  const mailHref  = `mailto:${emailTo}?subject=${emailSub}&body=${emailBody}`;
 
   return (
     <section id="contact" className="relative bg-neutral-950 text-white py-20 overflow-hidden">
@@ -82,7 +97,7 @@ export default function ContactSection() {
 
             <div className="flex flex-wrap gap-3 pt-2">
               <a
-                href="https://wa.me/5491112345678"
+                href={waHref}
                 className="inline-flex items-center gap-2 rounded-full bg-white text-black px-5 py-2.5 font-semibold transition-transform hover:scale-105 active:scale-95"
               >
                 {t("contact.whatsapp")}
@@ -91,7 +106,7 @@ export default function ContactSection() {
                 </svg>
               </a>
               <a
-                href="mailto:hola@tuempresa.com"
+                href={mailHref}
                 className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-2.5 font-semibold text-white/90 hover:bg-white/10 transition"
               >
                 {t("contact.email")}
@@ -133,6 +148,7 @@ export default function ContactSection() {
                   className="w-full rounded-lg bg-black/40 border border-white/15 px-4 py-2.5 outline-none focus:ring-2 focus:ring-white/30"
                 />
               </div>
+
               <div className="sm:col-span-2">
                 <label htmlFor={phoneId} className="block text-sm text-white/70 mb-1">
                   {t("contact.form.phone")}
@@ -145,6 +161,37 @@ export default function ContactSection() {
                   className="w-full rounded-lg bg-black/40 border border-white/15 px-4 py-2.5 outline-none focus:ring-2 focus:ring-white/30"
                 />
               </div>
+
+              {/* SELECT: Tipo de servicio */}
+              <div className="sm:col-span-2">
+                <label htmlFor={serviceId} className="block text-sm text-white/70 mb-1">
+                  {t("contact.form.service.label")}
+                </label>
+                <select
+                  id={serviceId}
+                  name="service"
+                  required
+                  className="w-full rounded-lg bg-black/40 border border-white/15 px-4 py-2.5 outline-none focus:ring-2 focus:ring-white/30"
+                  defaultValue=""
+                >
+                  <option value="" disabled>
+                    {t("contact.form.service.placeholder")}
+                  </option>
+                  {[
+                    { value: "landing",   key: "landing" },
+                    { value: "webapp",    key: "webapp" },
+                    { value: "branding",  key: "branding" },
+                    { value: "ecommerce", key: "ecommerce" },
+                    { value: "seo",       key: "seo" },
+                    { value: "otro",      key: "otro" },
+                  ].map((opt) => (
+                    <option key={opt.value} value={opt.value}>
+                      {t(`contact.form.service.options.${opt.key}`)}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
               <div className="sm:col-span-2">
                 <label htmlFor={msgId} className="block text-sm text-white/70 mb-1">
                   {t("contact.form.message")}
@@ -174,7 +221,7 @@ export default function ContactSection() {
               {loading ? t("contact.form.sending") : t("contact.form.send")}
             </button>
 
-            {status === "ok" && <p className="mt-3 text-sm text-green-300">{t("contact.form.success")}</p>}
+            {status === "ok"  && <p className="mt-3 text-sm text-green-300">{t("contact.form.success")}</p>}
             {status === "err" && <p className="mt-3 text-sm text-red-300">{t("contact.form.error")}</p>}
           </form>
         </div>
@@ -182,4 +229,3 @@ export default function ContactSection() {
     </section>
   );
 }
-

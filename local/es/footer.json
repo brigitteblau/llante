@@ -1,13 +1,9 @@
-
 {
-  "newsletter": {
-    "title": "Mantenete al tanto de Llante",
-    "subtitle": "Novedades, casos y lanzamientos. Sin spam.",
-    "emailPlaceholder": "Correo electrónico",
-    "cta": "Suscribirme"
-  },
+  "title": "Construimos tu próxima experiencia digital",
+  "subtitle": "Webs, branding y producto con foco en conversión.",
+  "ctaTalk": "Hablemos",
+  "ctaServices": "Ver servicios",
   "links": {
-    "blog": "Blog",
     "showcase": "Trabajos",
     "learn": "Servicios",
     "contact": "Contacto"
@@ -15,6 +11,26 @@
   "connect": "Conectar",
   "privacy": "Privacidad",
   "terms": "Términos",
-  "contactCta": "Contacto",
-  "copyright": "Todos los derechos reservados."
+  "contactCta": "Escribinos",
+  "copyright": "Todos los derechos reservados.",
+  "contactPrefill": "Hola, me gustaría consultar por un servicio.",
+  "emailSubject": "Consulta desde la web",
+  "modals": {
+    "work": {
+      "title": "Trabajos",
+      "desc": "Algunos proyectos recientes y casos de estudio.",
+      "item": "Sistema QR para instituciones",
+      "item2": "Landing + animaciones",
+      "item3": "E-commerce de indumentaria"
+    },
+    "services": {
+      "title": "Servicios",
+      "note": "Elegimos el stack según tu objetivo y presupuesto."
+    },
+    "contact": {
+      "title": "Contacto",
+      "desc": "Escribinos por el canal que prefieras:",
+      "hint": "Respuesta rápida en horario laboral."
+    }
+  }
 }

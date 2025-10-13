@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
     if (!parsed.success) {
       return NextResponse.json({ error: "Invalid" }, { status: 400 });
     }
-    const { name, email, phone, message, locale, website } = parsed.data;
+    const { name, email, phone, service, message, locale, website } = parsed.data;
 
 
     if (website && website.trim() !== "") {
@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
     // Guardar en DB
     const rows = await sql<
       { id: string }[]
-    >`insert into contacts (name,email,phone,message,locale) values (${name},${email},${phone||null},${message},${locale||'es'}) returning id`;
+    >`insert into contacts (name,email,phone, service,message,locale,) values (${name},${email},${phone||null},${message},${locale||'es'}) returning id`;
 
     // Notificar por mail
     await resend.emails.send({
@@ -34,8 +34,10 @@ export async function POST(req: NextRequest) {
         <p><b>Nombre:</b> ${name}</p>
         <p><b>Email:</b> ${email}</p>
         <p><b>Tel:</b> ${phone||"-"}</p>
+
         <p><b>Mensaje:</b><br/>${(message||"").replace(/\n/g,"<br/>")}</p>
-        <p><small>ID: ${rows[0].id}</small></p>
+            <p><b>Service:</b> ${service||"-"}</p>
+
       `
     });
 
