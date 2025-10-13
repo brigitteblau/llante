@@ -7,7 +7,8 @@ export const ContactSchema = z.object({
   message: z.string().min(5),
   locale: z.string().optional(),
   // honeypot:
-  website: z.string().optional()
+  website: z.string().optional(),
+  service: z.string().optional(), 
 });
 
 export const ApplySchema = z.object({

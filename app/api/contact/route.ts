@@ -34,9 +34,8 @@ export async function POST(req: NextRequest) {
         <p><b>Nombre:</b> ${name}</p>
         <p><b>Email:</b> ${email}</p>
         <p><b>Tel:</b> ${phone||"-"}</p>
-
         <p><b>Mensaje:</b><br/>${(message||"").replace(/\n/g,"<br/>")}</p>
-            <p><b>Service:</b> ${service||"-"}</p>
+        <p><b>Service:</b> ${service||"-"}</p>
 
       `
     });
