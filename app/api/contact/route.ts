@@ -19,10 +19,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: true }); 
     }
 
-    // Guardar en DB
-    const rows = await sql<
-      { id: string }[]
-    >`insert into contacts (name,email,phone, service,message,locale,) values (${name},${email},${phone||null},${message},${locale||'es'}) returning id`;
+  const _rows = await sql`
+  insert into contacts (name, email, phone, service, message, locale)
+  values (${name}, ${email}, ${phone ?? null}, ${service ?? null}, ${message}, ${locale ?? 'es'})
+  returning id
+`;
 
     // Notificar por mail
     await resend.emails.send({
@@ -35,7 +36,7 @@ export async function POST(req: NextRequest) {
         <p><b>Email:</b> ${email}</p>
         <p><b>Tel:</b> ${phone||"-"}</p>
         <p><b>Mensaje:</b><br/>${(message||"").replace(/\n/g,"<br/>")}</p>
-        <p><b>Service:</b> ${service||"-"}</p>
+       <p><b>Service:</b> ${service||"-"}</p>
 
       `
     });
