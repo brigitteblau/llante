@@ -7,10 +7,10 @@ import TrustedBy from "@/components/landing/Trustedby";
 import  FAQService from "@/components/landing/Questions";
 import  ContactSection from "@/components/landing/ContactSection";
 import Footer from "@/components/common/Footer";
+import BePart from "@/components/landing/BePart";
 import {setRequestLocale} from "next-intl/server";
 
 export default async function Page(props: {
-  // 👇 también Promise acá
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await props.params;
@@ -24,6 +24,7 @@ export default async function Page(props: {
       </main>
        <TrustedBy/>
        <FAQService/>
+       <BePart/>
 <ContactSection/>
       <Footer/>
     </>
