@@ -1,0 +1,35 @@
+{
+    "title": "Sé parte de Llante",
+    "subtitle": "Consultoría joven de tecnología y diseño.",
+    "intro": "¿Estás cansado/a de que en la mayoría de los trabajos te pidan años de experiencia? Si tenés entre 14 y 20 años y sos apasionado/a de la tecnología, diseño y más, estás en el lugar correcto. Completá el formulario para que podamos comunicarnos con vos y crear algo muy bueno juntos.",
+    "form": {
+      "q1": {
+        "label": "¿En qué te gustaría aportar?",
+        "placeholder": "Seleccioná una opción",
+        "options": {
+          "frontend": "Frontend",
+          "backend": "Backend",
+          "branding": "Branding",
+          "design": "Diseño",
+          "data": "Data",
+          "networking": "Networking",
+          "seo": "SEO",
+          "other": "Otro"
+        }
+      },
+      "q2": {
+        "label": "Contanos brevemente tu experiencia o ideas",
+        "placeholder": "Ej: Hice sitios con React, me interesa aprender marca personal..."
+      },
+      "q3": {
+        "label": "Tu email o WhatsApp",
+        "placeholder": "Ej: mail@ejemplo.com o +54 9 ..."
+      },
+      "consent": "Acepto que me contacten para coordinar una charla.",
+      "send": "Enviar",
+      "sending": "Enviando...",
+      "success": "¡Gracias! Te vamos a contactar.",
+      "error": "Ups, algo salió mal. Probá de nuevo."
+    }
+  }
+  
