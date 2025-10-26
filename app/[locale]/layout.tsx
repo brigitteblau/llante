@@ -4,6 +4,9 @@ import { setRequestLocale, getMessages } from "next-intl/server";
 import { Inter } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import "../globals.css";
+import NavBar from "@/components/common/NavBar";
+import Footer from "@/components/common/Footer";
+import GlobalAnimations from "@/components/common/GlobalAnimations";
 import type { Metadata } from "next";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -38,7 +41,12 @@ export default async function LocaleLayout(props: {
     <html lang={locale}>
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages}>
-          {props.children}
+          <NavBar />
+          {/* Monta animaciones globales en cliente */}
+          <GlobalAnimations />
+
+          <main className="overflow-hidden"> {props.children} </main>
+          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>

@@ -26,7 +26,6 @@ useEffect(() =>
   const links = [
     { href: `/${locale}`, label: t("nav.hello") },
     { href: `/${locale}/team`, label: t("nav.projects") },
-    { href: `/${locale}/solutions`, label: t("nav.about") },
     { href: `/#contact`, label: t("nav.contact") },
   ];
 

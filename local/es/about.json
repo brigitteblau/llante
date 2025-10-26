@@ -1,0 +1,78 @@
+{
+  "hero": {
+    "headline": "Llante — diseño joven, tecnología real, impacto medible.",
+    "sub": "Somos un estudio/consultora creada por y para gente joven: branding, sitios a medida, motion y growth con métricas reales.",
+    "image": "/about/hero.jpg"
+  },
+
+  "ribbon": [
+    "Branding",
+    "UX/UI",
+    "Web Apps",
+    "Motion",
+    "SEO",
+    "Growth",
+    "Photo",
+    "Video",
+    "GSAP",
+    "Next.js",
+    "Analytics"
+  ],
+
+  "mission": {
+    "title": "Nuestra misión",
+    "text": "Combinar estética fresca con ingeniería práctica. Entregamos productos que se ven bien, cargan rápido y convierten.",
+    "bullets": [
+      "Prototipado veloz con usuarios reales",
+      "Lighthouse 90+ en performance",
+      "Animaciones sutiles con GSAP"
+    ],
+    "image": "/about/mission.jpg"
+  },
+
+  "values": {
+    "title": "Valores",
+    "items": [
+      {
+        "title": "Claridad",
+        "text": "Brief claro, roadmap simple y demos semanales. Nada de humo."
+      },
+      {
+        "title": "Velocidad",
+        "text": "Sprints cortos, entregables reales. Lo que no suma, se corta."
+      },
+      {
+        "title": "Cuidado",
+        "text": "Micro-interacciones, accesibilidad y copy cuidado."
+      }
+    ]
+  },
+
+  "team": {
+    "title": "Quiénes somos",
+    "subtitle": "Equipo / Backstage",
+    "images": [
+      { "src": "/about/brigitte-1.jpg", "alt": "Brigitte Blau" },
+      { "src": "/about/team-1.jpg", "alt": "Equipo Llante" },
+      { "src": "/about/work-1.jpg", "alt": "Trabajo en proceso" },
+      { "src": "/about/work-2.jpg", "alt": "Workshop y sesión de diseño" }
+    ],
+    "directorLine": "Dirección creativa y técnica: Brigitte Blau. Colaboramos con jóvenes diseñadores, devs y fotógrafos de la comunidad."
+  },
+
+  "cta": {
+    "title": "¿Hacemos algo juntos?",
+    "text": "Mandanos tu idea, referencia o problema. Te devolvemos un mini-plan con tiempos y presupuesto.",
+    "label": "Escribinos",
+    "href": "mailto:contacto@llante.studio"
+  },
+
+  "bePart": {
+    "title": "¿Sos un joven emprendedor o creativo?",
+    "text": "¿Cansado de que en todos los trabajos pidan “años de experiencia”? Acá buscamos actitud, curiosidad y entrega. Si construís, aprendés y te bancás shippear, sos de los nuestros.",
+    "altLine": "Estamos sumando diseñadores, devs, fotógrafos, makers y mentes curiosas.",
+    "ctala": "Unite a Llante",
+    "href": "https://forms.gle/tu-form-de-google"
+  }
+}
+

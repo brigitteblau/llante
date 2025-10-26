@@ -1,20 +1,74 @@
 "use client";
 
 import { useTranslations, useLocale } from "next-intl";
-import { useId, useState } from "react";
+import { useId, useState, useRef, useLayoutEffect } from "react";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function ContactSection() {
   const t = useTranslations("info");
   const locale = useLocale();
 
-  const nameId   = useId();
-  const emailId  = useId();
-  const phoneId  = useId();
-  const serviceId= useId();
-  const msgId    = useId();
+  const nameId = useId();
+  const emailId = useId();
+  const phoneId = useId();
+  const serviceId = useId();
+  const msgId = useId();
 
   const [loading, setLoading] = useState(false);
-  const [status, setStatus]   = useState<null | "ok" | "err">(null);
+  const [status, setStatus] = useState<null | "ok" | "err">(null);
+
+  // --- refs para reveals ---
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const headerRef = useRef<HTMLDivElement | null>(null);
+  const bulletsRef = useRef<HTMLUListElement | null>(null);
+  const formRef = useRef<HTMLFormElement | null>(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      // header
+      gsap.fromTo(
+        headerRef.current,
+        { autoAlpha: 0, y: 24 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: { trigger: headerRef.current!, start: "top 85%" }
+        }
+      );
+      // bullets (stagger)
+      gsap.fromTo(
+        bulletsRef.current?.children || [],
+        { autoAlpha: 0, y: 12 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.5,
+          stagger: 0.08,
+          ease: "power2.out",
+          scrollTrigger: { trigger: bulletsRef.current!, start: "top 80%" }
+        }
+      );
+      // form
+      gsap.fromTo(
+        formRef.current,
+        { autoAlpha: 0, y: 20 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.6,
+          ease: "power2.out",
+          scrollTrigger: { trigger: formRef.current!, start: "top 85%" }
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -22,7 +76,6 @@ export default function ContactSection() {
 
     const form = e.currentTarget;
     const data = new FormData(form);
-
 
     if ((data.get("company") as string)?.trim()) {
       setStatus("ok");
@@ -36,7 +89,7 @@ export default function ContactSection() {
       phone: (data.get("phone") as string)?.trim() || null,
       service: (data.get("service") as string)?.trim() || null, // <— NUEVO
       message: (data.get("message") as string)?.trim(),
-      locale,
+      locale
     };
 
     if (!payload.name || !payload.email || !payload.message) return;
@@ -46,7 +99,7 @@ export default function ContactSection() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(payload)
       });
 
       if (!res.ok) throw new Error("Request failed");
@@ -59,25 +112,33 @@ export default function ContactSection() {
     }
   }
 
-  const waPhone = "5491161213881"; 
-  const waText  = encodeURIComponent(
+  const waPhone = "5491161213881";
+  const waText = encodeURIComponent(
     t("contact.whatsappPrefill", {
-      default: "Hola llante, quiero consultar por un servicio.",
+      default: "Hola llante, quiero consultar por un servicio."
     })
   );
   const waHref = `https://wa.me/${waPhone}?text=${waText}`;
 
-  const emailTo   = "brigitteyaelblau0@gmail.com";
-  const emailSub  = encodeURIComponent(t("contact.emailSubject", { default: "Consulta desde la web" }));
-  const emailBody = encodeURIComponent(t("contact.emailBody", { default: "Hola, me gustaría consultar por un servicio." }));
-  const mailHref  = `mailto:${emailTo}?subject=${emailSub}&body=${emailBody}`;
+  const emailTo = "brigitteyaelblau0@gmail.com";
+  const emailSub = encodeURIComponent(
+    t("contact.emailSubject", { default: "Consulta desde la web" })
+  );
+  const emailBody = encodeURIComponent(
+    t("contact.emailBody", { default: "Hola, me gustaría consultar por un servicio." })
+  );
+  const mailHref = `mailto:${emailTo}?subject=${emailSub}&body=${emailBody}`;
 
   return (
-    <section id="contact" className="relative bg-neutral-950 text-white py-20 overflow-hidden">
+    <section
+      id="contact"
+      ref={sectionRef}
+      className="relative bg-neutral-950 text-white py-20 overflow-hidden"
+    >
       <div aria-hidden className="difuminado pointer-events-none absolute inset-0" />
 
       <div className="relative max-w-5xl mx-auto px-6">
-        <header className="mb-10 text-center">
+        <header ref={headerRef} className="mb-10 text-center">
           <h2 className="text-3xl sm:text-5xl font-extrabold">{t("contact.title")}</h2>
           <p className="mt-3 text-white/70">{t("contact.subtitle")}</p>
         </header>
@@ -86,7 +147,7 @@ export default function ContactSection() {
           {/* texto / bullets */}
           <div className="space-y-6">
             <p className="text-white/80">{t("contact.pitch")}</p>
-            <ul className="space-y-3">
+            <ul ref={bulletsRef} className="space-y-3">
               {["flex1", "flex2", "flex3", "flex4"].map((k) => (
                 <li key={k} className="flex items-start gap-3">
                   <span className="mt-1 h-2 w-2 rounded-full bg-gradient-to-r from-[var(--hot)] to-[var(--cool)]" />
@@ -102,7 +163,10 @@ export default function ContactSection() {
               >
                 {t("contact.whatsapp")}
                 <svg width="16" height="16" viewBox="0 0 24 24" className="opacity-70">
-                  <path fill="currentColor" d="M13 5h6v6h-2V8.41l-9.29 9.3l-1.42-1.42l9.3-9.29H13z" />
+                  <path
+                    fill="currentColor"
+                    d="M13 5h6v6h-2V8.41l-9.29 9.3l-1.42-1.42l9.3-9.29H13z"
+                  />
                 </svg>
               </a>
               <a
@@ -116,11 +180,18 @@ export default function ContactSection() {
 
           {/* formulario */}
           <form
+            ref={formRef}
             onSubmit={onSubmit}
             noValidate
             className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur"
           >
-            <input type="text" name="company" className="hidden" tabIndex={-1} autoComplete="off" />
+            <input
+              type="text"
+              name="company"
+              className="hidden"
+              tabIndex={-1}
+              autoComplete="off"
+            />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
@@ -178,12 +249,12 @@ export default function ContactSection() {
                     {t("contact.form.service.placeholder")}
                   </option>
                   {[
-                    { value: "landing",   key: "landing" },
-                    { value: "webapp",    key: "webapp" },
-                    { value: "branding",  key: "branding" },
+                    { value: "landing", key: "landing" },
+                    { value: "webapp", key: "webapp" },
+                    { value: "branding", key: "branding" },
                     { value: "ecommerce", key: "ecommerce" },
-                    { value: "seo",       key: "seo" },
-                    { value: "otro",      key: "otro" },
+                    { value: "seo", key: "seo" },
+                    { value: "otro", key: "otro" }
                   ].map((opt) => (
                     <option key={opt.value} value={opt.value}>
                       {t(`contact.form.service.options.${opt.key}`)}
@@ -221,8 +292,12 @@ export default function ContactSection() {
               {loading ? t("contact.form.sending") : t("contact.form.send")}
             </button>
 
-            {status === "ok"  && <p className="mt-3 text-sm text-green-300">{t("contact.form.success")}</p>}
-            {status === "err" && <p className="mt-3 text-sm text-red-300">{t("contact.form.error")}</p>}
+            {status === "ok" && (
+              <p className="mt-3 text-sm text-green-300">{t("contact.form.success")}</p>
+            )}
+            {status === "err" && (
+              <p className="mt-3 text-sm text-red-300">{t("contact.form.error")}</p>
+            )}
           </form>
         </div>
       </div>

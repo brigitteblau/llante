@@ -16,10 +16,10 @@ export default getRequestConfig(async ({locale}) => {
   const footer    = (await import(`@/local/${loc}/footer.json`)).default;
   const info   = (await import(`@/local/${loc}/info.json`)).default;
   const legal   = (await import(`@/local/${loc}/legal.json`)).default;
-
+  const about   = (await import(`@/local/${loc}/about.json`)).default;
   // Podés usar namespaces (common.*, hero.*) con useTranslations("hero")
   return {
     locale: loc,
-    messages: {common, hero, banner, vision, benefits, footer, info, legal}
+    messages: {common, hero, banner, vision, benefits, footer, info, legal, about}
   };
 });

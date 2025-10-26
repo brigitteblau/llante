@@ -1,68 +1,101 @@
 "use client";
 
-import {useRef, useEffect} from "react";
-import {useTranslations} from "next-intl";
+import React, { useLayoutEffect, useRef } from "react";
+import { useTranslations } from "next-intl";
 import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
   const t = useTranslations("hero");
-  const heroRef = useRef<HTMLDivElement | null>(null);
+  const root = useRef<HTMLDivElement | null>(null);
   const orb1 = useRef<HTMLDivElement | null>(null);
   const orb2 = useRef<HTMLDivElement | null>(null);
   const orb3 = useRef<HTMLDivElement | null>(null);
   const titleRef = useRef<HTMLHeadingElement | null>(null);
   const ctaRef = useRef<HTMLAnchorElement | null>(null);
 
-  useEffect(() => {
-    // entrada suave del título y botón
-    gsap.fromTo(
-      titleRef.current,
-      {y: 24, opacity: 0},
-      {y: 0, opacity: 1, duration: 0.9, ease: "power3.out"}
-    );
-    gsap.fromTo(
-      ctaRef.current,
-      {y: 16, opacity: 0},
-      {y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: "power3.out"}
-    );
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      // 1) Entrada suave título/CTA (una sola vez)
+      gsap.fromTo(
+        titleRef.current,
+        { y: 24, autoAlpha: 0 },
+        { y: 0, autoAlpha: 1, duration: 0.9, ease: "power3.out" }
+      );
+      gsap.fromTo(
+        ctaRef.current,
+        { y: 16, autoAlpha: 0 },
+        { y: 0, autoAlpha: 1, duration: 0.8, delay: 0.2, ease: "power3.out" }
+      );
 
-    // orbes flotando (loop infinito, lento)
-    const floats = [
-      {ref: orb1, dx: 60, dy: 40, d: 14},
-      {ref: orb2, dx: 80, dy: 60, d: 18},
-      {ref: orb3, dx: 50, dy: 70, d: 22},
-    ];
-    floats.forEach(({ref, dx, dy, d}, i) => {
-      if (!ref.current) return;
-      gsap.to(ref.current, {
-        x: `+=${dx}`,
-        y: `-=${dy}`,
-        duration: d,
-        ease: "sine.inOut",
-        yoyo: true,
-        repeat: -1,
-        delay: i * 0.2,
+      // 2) Flotado infinito de orbes (idle)
+      const floatSpec = [
+        { ref: orb1, dx: 60, dy: 40, d: 14 },
+        { ref: orb2, dx: 80, dy: 60, d: 18 },
+        { ref: orb3, dx: 50, dy: 70, d: 22 },
+      ];
+      floatSpec.forEach(({ ref, dx, dy, d }, i) => {
+        if (!ref.current) return;
+        gsap.to(ref.current, {
+          x: `+=${dx}`,
+          y: `-=${dy}`,
+          duration: d,
+          ease: "sine.inOut",
+          yoyo: true,
+          repeat: -1,
+          delay: i * 0.2,
+        });
       });
-    });
 
-    // parallax muy sutil al hacer scroll
-    const onScroll = () => {
-      const y = window.scrollY;
-      if (orb1.current) orb1.current.style.transform += ` translateY(${y * -0.02}px)`;
-      if (orb2.current) orb2.current.style.transform += ` translateY(${y * -0.04}px)`;
-      if (orb3.current) orb3.current.style.transform += ` translateY(${y * -0.01}px)`;
-    };
-    window.addEventListener("scroll", onScroll, {passive: true});
-    return () => window.removeEventListener("scroll", onScroll);
+      // 3) Parallax con ScrollTrigger (scrub suave, sin concatenar transforms)
+      const triggerEl = root.current!;
+      const mkParallax = (el: HTMLElement | null, factor: number) => {
+        if (!el) return;
+        gsap.fromTo(
+          el,
+          { yPercent: 0 },
+          {
+            yPercent: factor,
+            ease: "none",
+            scrollTrigger: {
+              trigger: triggerEl,
+              start: "top top",
+              end: "+=600", // ajustá si querés más/menos recorrido
+              scrub: 0.5,
+              // markers: true,
+            },
+          }
+        );
+      };
+      mkParallax(orb1.current, -2); // movimientos sutiles, en %
+      mkParallax(orb2.current, -4);
+      mkParallax(orb3.current, -1);
+
+      // 4) Respeto a reduced-motion
+      ScrollTrigger.matchMedia({
+        "(prefers-reduced-motion: reduce)": () => {
+          gsap.globalTimeline.getChildren().forEach((t) => t.timeScale(0)); // congela anims
+        },
+      });
+    }, root);
+
+    return () => ctx.revert();
   }, []);
 
   return (
     <section
-      ref={heroRef}
+      ref={root}
+      data-ll-layer="1"
+      data-ll-motion="side"
       className="relative min-h-[100vh] flex items-center justify-center overflow-hidden"
-      style={{background: "linear-gradient(180deg, #0b1024 0%, #0e1430 60%, #11173a 100%)"}}
+      style={{
+        background:
+          "linear-gradient(180deg, #0b1024 0%, #0e1430 60%, #11173a 100%)",
+      }}
     >
-      {/* Orbes (círculos) con blur suave y blend bonito */}
+      {/* Orbes */}
       <div className="pointer-events-none absolute inset-0">
         <div
           ref={orb1}
@@ -94,7 +127,6 @@ export default function Hero() {
               "radial-gradient(closest-side, rgba(0,245,212,0.45), rgba(0,245,212,0) 70%)",
           }}
         />
-        {/* halo central muy suave */}
         <div
           className="absolute inset-0"
           style={{
@@ -112,11 +144,13 @@ export default function Hero() {
         >
           <span className="block">
             <span className="px-4 py-1 rounded-md bg-white/10">
-              {t("big1", {default: "Sistemas"})}
+              {t("big1", { default: "Sistemas" })}
             </span>{" "}
-            {t("big2", {default: "que"})}
+            {t("big2", { default: "que" })}
           </span>
-          <span className="block mt-2">{t("big3", {default: "entregan resultados"})}</span>
+          <span className="block mt-2">
+            {t("big3", { default: "entregan resultados" })}
+          </span>
           <span
             className="block mt-2"
             style={{
@@ -126,21 +160,20 @@ export default function Hero() {
               color: "transparent",
             }}
           >
-            {t("big4", {default: "para tu organización."})}
+            {t("big4", { default: "para tu organización." })}
           </span>
         </h1>
 
         <div className="mt-10">
-    <a
-  ref={ctaRef}
-  href="#contact"
-  className="inline-flex items-center justify-center rounded-full bg-white text-black font-semibold text-base sm:text-lg px-8 py-3 transition-all duration-300 ease-out 
-             hover:scale-170 hover:-translate-y-1 hover:shadow-[0_0_25px_rgba(255,255,255,0.5)]
-             hover:rotate-[1deg] active:scale-95"
->
-  {t("cta.call", { default: "Llámanos por lo que necesitás" })}
-</a>
-
+          <a
+            ref={ctaRef}
+            href="#contact"
+            className="inline-flex items-center justify-center rounded-full bg-white text-black font-semibold text-base sm:text-lg px-8 py-3 transition-all duration-300 ease-out 
+                   hover:-translate-y-1 hover:shadow-[0_0_25px_rgba(255,255,255,0.5)]
+                   hover:rotate-[1deg] active:scale-95"
+          >
+            {t("cta.call", { default: "Llámanos por lo que necesitás" })}
+          </a>
         </div>
       </div>
     </section>
