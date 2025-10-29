@@ -69,10 +69,11 @@
 
   "bePart": {
     "title": "¿Sos un joven emprendedor o creativo?",
-    "text": "¿Cansado de que en todos los trabajos pidan “años de experiencia”? Acá buscamos actitud, curiosidad y entrega. Si construís, aprendés y te bancás shippear, sos de los nuestros.",
-    "altLine": "Estamos sumando diseñadores, devs, fotógrafos, makers y mentes curiosas.",
-    "ctala": "Unite a Llante",
-    "href": "https://forms.gle/tu-form-de-google"
+    "text": "Cansado de que en todos los trabajos pidan “años de experiencia”? Acá buscamos actitud, curiosidad y entrega. Si construís, aprendés y te bancás shippear, sos de los nuestros.",
+    "altLine": "Si sos joven emprendedor y querés construir en equipo, ¡este es tu lugar! Estamos sumando diseñadores, devs, fotógrafos, makers y mentes curiosas.",
+    "ctaLabel": "Unite a LLante",
+    "ctaAria": "Ir al formulario de postulación",
+    "href": "https://forms.gle/tu-form",
+    "thumbAlt": "Imagen de inspiración {{index}}"
   }
 }
-
